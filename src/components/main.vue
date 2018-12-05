@@ -1,15 +1,21 @@
 <template>
   <div class="main">
-    <div class="main__container" :class="{ blur: blur }">
-      <menu @openModal="openMod"> </menu>
+      <div class="main__container" :class="{ blur: blur }">
+        <Menu @openModal="openMod">
+        </Menu>
     </div>
-    <Modal v-show="showModal" @closeModal="closeMod" />
+    <Modal v-show="showModal" @closeModal="closeMod"/>
   </div>
 </template>
 
 <script>
-import Menu from "./menu";
-import Modal from "./modal";
+
+import Menu from './menu'
+import Modal from './modal'
+
+document.documentElement.style.overflow = 'hidden';
+document.body.style.overflow = 'hidden';
+
 export default {
   name: "Main",
   data() {
@@ -42,6 +48,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: 0.2s;
 }
 .blur {
   filter: blur(4px);

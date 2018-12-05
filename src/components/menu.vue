@@ -1,7 +1,7 @@
 <template>
   <div class="menu-section">
     <div class="menu">
-      <div class="sign-in__button" @click="$emit('openModal');">Войти</div>
+      <div class="sign-in__button" @click="$emit('openModal')">Войти</div>
       <div class="menu__list">
         <ul id="list" @mouseover="animateLine">
           <li>О нас<span></span></li>
@@ -13,10 +13,14 @@
       </div>
       <div class="menu__contacts">
         <p>Связаться с нами:</p>
-        <a href="#"><img src="../assets/github.svg" alt=""/></a>
-        <a href="#"><img src="../assets/instagram.svg" alt=""/></a>
-        <a href="#"><img src="../assets/telegram.svg" alt=""/></a>
-        <a href="#"><img src="../assets/twitter (1).svg" alt=""/></a>
+          <a href="#"
+            ><img src="../assets/github.svg" alt=""></a>
+          <a href="#"
+            ><img src="../assets/instagram.svg" alt=""></a>
+            <a href="#"
+            ><img src="../assets/telegram.svg" alt=""></a>
+            <a href="#"
+            ><img src="../assets/twitter (1).svg" alt=""></a>
       </div>
     </div>
   </div>
@@ -30,21 +34,17 @@ export default {
   },
   methods: {
     animateLine: function(e) {
-      if (e.target.tagName === "LI") {
-        if (
-          getComputedStyle(e.target.querySelector("span")).transform !==
-          "matrix(1, 0, 0, 1, 0, 0)"
-        )
-          return;
-        e.target.querySelector("span").style.transform = "translateX(300%)";
+      if (e.target.tagName === 'LI') {
+        if (getComputedStyle(e.target.querySelector('span')).transform !== 'matrix(1, 0, 0, 1, 0, 0)') return;
+        e.target.querySelector('span').style.transform = 'translateX(300%)';
         setTimeout(() => {
-          e.target.querySelector("span").style.transition = "0s";
-          e.target.querySelector("span").style.transform = "translateX(-300%)";
+          e.target.querySelector('span').style.transition = '0s';
+          e.target.querySelector('span').style.transform = 'translateX(-300%)';
           setTimeout(() => {
-            e.target.querySelector("span").style.transition = "0.25s";
-            e.target.querySelector("span").style.transform = "translateX(0%)";
-          }, 250);
-        }, 250);
+            e.target.querySelector('span').style.transition = '0.25s';
+          e.target.querySelector('span').style.transform = 'translateX(0%)';
+        }, 250)
+        }, 250)
       }
     }
   }
@@ -78,7 +78,7 @@ export default {
 }
 a {
   text-decoration: none;
-  color: white;
+  color: white
 }
 i {
   text-decoration: none;
@@ -116,7 +116,7 @@ li {
   cursor: pointer;
 }
 #list > li > span {
-  content: "";
+  content: '';
   position: absolute;
   width: 125%;
   height: 1px;
