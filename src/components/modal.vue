@@ -226,7 +226,7 @@ export default {
         if (/^[a-zA-Z\d]+$/gi.test(this.inputObj[event.target.id])) {
           this.match[event.target.id] = true;
           event.target.classList.add('correct');
-          this.inputs.sign_up_inputs[event.target.id].error = false;
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].error = false;
           event.target.classList.remove('wrong');
         }
         else {
