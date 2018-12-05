@@ -1,7 +1,7 @@
 <template>
   <div class="modal__container" @click.self="$emit('closeModal', $event); clearInputs()">
     <div class="modal">
-      <span @click="$emit('closeModal', $event)">X</span>
+      <span @click="$emit('closeModal', $event); clearInputs()">X</span>
       <div class="tabs" @click="changeTab($event)">
         <div class="sign-in__tab" :class="{ not__active: active }">
           Войти
@@ -13,26 +13,32 @@
       <div class="content">
         <div class="sign-in__content" v-show="signIn">
           <div class="inputs">
-            <input type="text" v-model="inputObj[input.id]" class="bord" v-for="input in inputs.sign_in_inputs" :key="input.id" :id="input.id" :placeholder="input.placeholder" @blur="checkInput($event)">
+            <div class="input" v-for="input in inputs.sign_in_inputs" :key="input.id" >
+              <p class="error" v-show="input.error"> {{ input.inputMsg }} </p>
+              <input type="text" v-model="inputObj[input.id]" class="bord" :id="input.id" :placeholder="input.placeholder" @blur="checkInput($event)">
+            </div>
           </div>
           <div class="buttons">
             <button class="create" @click="sendRequest(currentTab)">
               Войти
             </button>
-            <button class="cancel" @click="$emit('closeModal', $event)">
+            <button class="cancel" @click="$emit('closeModal', $event); clearInputs()">
               Отменить
             </button>
           </div>
         </div>
         <div class="sign-up__content" v-show="!signIn">
           <div class="inputs">
-            <input type="text" v-model="inputObj[input.id]" class="bord" v-for="input in inputs.sign_up_inputs" :key="input.id" :id="input.id" :placeholder="input.placeholder" @blur="checkInput($event)">
+            <div class="input" v-for="input in inputs.sign_up_inputs" :key="input.id">
+              <p class="error" v-show="input.error"> {{ input.inputMsg }} </p>
+              <input type="text" v-model="inputObj[input.id]" class="bord" :id="input.id" :placeholder="input.placeholder" @blur="checkInput($event)">
+            </div>
           </div>
           <div class="buttons">
             <button class="create" @click="sendRequest(currentTab)">
               Зврегистрироваться
             </button>
-            <button class="cancel" @click="$emit('closeModal', $event)">
+            <button class="cancel" @click="$emit('closeModal', $event); clearInputs()">
               Отменить
             </button>
           </div>
@@ -52,38 +58,52 @@ export default {
       inputs: {
         sign_up_inputs: {
           username: {
+            error: false,
+            inputMsg: '',
             id: 'username',
             placeholder: "Введите имя пользователя"
           },
           phone: {
+            error: false,
+            inputMsg: '',
             id: 'phone',
             placeholder: "Введите номер телефона"
           },
           email: {
+            error: false,
+            inputMsg: '',
             id: 'email',
             placeholder: "Введите email"
           },
           password: {
+            error: false,
+            inputMsg: '',
             id: 'password',
             placeholder: "Введите пароль"
           }
         },
         sign_in_inputs: {
-        username: {
-          id: 'username',
-          placeholder: "Введите имя пользователя"
-        },
-        email: {
-          id: 'email',
-          placeholder: "Введите email"
-        },
-        password: {
-          id: 'password',
-          placeholder: "Введите пароль"
-        }
+          username: {
+            error: false,
+            inputMsg: '',
+            id: 'username',
+            placeholder: "Введите имя пользователя"
+          },
+          email: {
+            error: false,
+            inputMsg: '',
+            id: 'email',
+            placeholder: "Введите email"
+          },
+          password: {
+            error: false,
+            inputMsg: '',
+            id: 'password',
+            placeholder: "Введите пароль"
+          }
         }
       },
-      currentTab: 'SignIn',
+      currentTab: 'sign_in',
       inputObj: {
         password: '',
         email: '',
@@ -109,6 +129,9 @@ export default {
         };
         item.classList.remove('wrong');
       });
+            for (let input in this.inputs[`${this.currentTab}_inputs`]) {
+        this.inputs[`${this.currentTab}_inputs`][input].error = false;
+      }
     },
     sendRequest(type) {
       console.dir(this.match);
@@ -142,17 +165,20 @@ export default {
       }
     },
     changeTab: function(event) {
+      for (let input in this.inputs[`${this.currentTab}_inputs`]) {
+        this.inputs[`${this.currentTab}_inputs`][input].error = false;
+      }
       if (event.target.classList.contains('not__active')) {
         this.active = !this.active;
         this.signIn = !this.signIn;
       }
-      if (this.currentTab === 'SignUp') {
+      if (this.currentTab === 'sign_up') {
         this.inputObj = {
           password: '',
           email: '',
           username: '',
         }
-        this.currentTab = 'SignIn';
+        this.currentTab = 'sign_in';
       }
       else {
         this.inputObj = {
@@ -161,7 +187,7 @@ export default {
           phone: '',
           username: '',
         }
-        this.currentTab = 'SignUp';
+        this.currentTab = 'sign_up';
       }
       this.clearInputs();
     },
@@ -171,9 +197,11 @@ export default {
          event.target.classList.add('correct');
          event.target.classList.remove('wrong');
          this.match[event.target.id] = true;
+         this.inputs[`${this.currentTab}_inputs`][event.target.id].error = false;
         }
         else {
-          
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].error = true;
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].inputMsg = '+380 обязателен! Можно использовать только цифры!'
           this.match[event.target.id] = false;
           event.target.classList.add('wrong');
           event.target.classList.remove('correct');
@@ -183,9 +211,12 @@ export default {
         if (/^[a-zA-z\d]+@[a-zA-Z\d]+\.com$/gi.test(this.inputObj[event.target.id])) {
           this.match[event.target.id] = true;
           event.target.classList.add('correct');
-         event.target.classList.remove('wrong');
+          event.target.classList.remove('wrong');
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].error = false;
         }
         else {
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].error = true;
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].inputMsg = 'Разрешены латинские буквы и цифры. "@" и .com обязательны!'
           this.match[event.target.id] = false;
           event.target.classList.add('wrong');
           event.target.classList.remove('correct');
@@ -195,9 +226,12 @@ export default {
         if (/^[a-zA-Z\d]+$/gi.test(this.inputObj[event.target.id])) {
           this.match[event.target.id] = true;
           event.target.classList.add('correct');
-         event.target.classList.remove('wrong');
+          this.inputs.sign_up_inputs[event.target.id].error = false;
+          event.target.classList.remove('wrong');
         }
         else {
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].error = true;
+          this.inputs[`${this.currentTab}_inputs`][event.target.id].inputMsg = 'Используйте только латинские буквы или цифры!'
           this.match[event.target.id] = false;
           event.target.classList.add('wrong');
           event.target.classList.remove('correct');
@@ -225,9 +259,11 @@ export default {
   color: #CC2936;
   position: absolute;
   top: 0;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  width: 100%;
   margin: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .bord {
   border: 1px solid black;
@@ -312,13 +348,17 @@ span {
   align-items: center;
   justify-content: center;
 }
-.inputs > input {
+.input {
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+.input > input {
   margin: 15px;
   width: 75%;
   padding: 10px;
   outline: none;
   border-radius: 5px;
-  position: relative;
 }
 .buttons {
   display: flex;
