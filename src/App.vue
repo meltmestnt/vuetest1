@@ -1,5 +1,8 @@
 <template>
-  <div id="app"><main /></div>
+  <div id="app">
+    
+    <Main />
+  </div>
 </template>
 
 <script>
