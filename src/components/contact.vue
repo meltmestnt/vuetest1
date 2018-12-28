@@ -1,31 +1,30 @@
 <template>
-  <div class="main">
-      <div class="main__container" :class="{ blur: blur }">
-        <Header @open-modal="openMod"></Header>
-            <Menu :highlighted="$props.active">
-            </Menu>
-        <section>
+    <div class="main">
+        <div class="main__container" :class="{ blur: blur }">
+            <Header @open-modal="openMod"></Header>
+            <Menu :highlighted="$props.active"></Menu>
+            <section>
                 <div class="content">
-                    <h1>Main page</h1>
+                    <h1>Contact page</h1>
                 </div>
             </section>
-    </div>
+        </div>
       <Modal v-show="showModal" @closeModal="closeMod"/>
-  </div>
+    </div>
 </template>
 
 <script>
 import Menu from './menu'
 import Header from './header'
 import Modal from './modal'
-export default {
-  name: "Main",
+    export default {
+        name: 'Contact',
   props: {
       active: {
           type: String
       }
   },
-  data() {
+        data() {
     return {
       showModal: false,
       blur: false,
@@ -43,23 +42,20 @@ export default {
         this.blur = false;
     }
   },
-  components: {
-    Menu,
-    Modal,
-    Header
-  }
-};
+        components: {
+            Menu,
+            Modal,
+            Header
+        }
+    }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
-
 .blur {
   filter: blur(4px);
 }
@@ -67,12 +63,10 @@ export default {
   background-color: rgba(255,255,255,0.5);
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: row;
-  position: relative;
 }
 .main__container {
   width: 100vw;
   height: 100vh;
 }
+
 </style>

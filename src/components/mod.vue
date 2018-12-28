@@ -60,12 +60,13 @@ export default {
     width: 500px;
     min-height: 100px;
     text-align: center;
-    color: white;
     font-family: 'Lora', serif;
     top: 0px;
     display: block;
     margin: 0 auto;
     z-index: 999;
+    box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
+    background-color: #fafafa;
 }
 .message {
     width: 100%;
@@ -80,9 +81,11 @@ export default {
     align-items: center;
 }
 .succ {
-    background-color: rgba(42, 127, 98, 0.7);
+    font-family: "Times New Roman", sans-serif;
+    color: #007aff;
 }
 .err {
-    background-color: rgba(156,13,56, 0.7);
+    color: rgba(156,13,56, 0.7);
+    font-family: "Times New Roman", sans-serif;
 }
 </style>

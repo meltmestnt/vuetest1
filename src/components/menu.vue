@@ -1,219 +1,246 @@
 <template>
-  <div class="menu-section">
-    <div class="menu">
-      <div class="menu__list">
-        <ul id="list">
-            <transition v-for="li in lis" :key="li.index" name="left">
-          <li :key="li.index" tabindex="1" v-show="showMenu"> {{li.msg}} </li>
-        </transition>
-        </ul>
+  <div
+    class="menu__section"
+    @mouseover="expand"
+    @mouseout="reduce"
+    :class="{initial: !active, expanded: active}"
+  >
+    <div class="wrapper">
+      <div class="spans">
+        <span :class="{rotated: active, not__rotated: !active}"></span>
+        <span :class="{disappeared: active, not__rotated: !active}"></span>
+        <span :class="{rotatedReversed: active, not__rotated: !active}"></span>
       </div>
-      <transition :css="false" v-on:enter="enter" v-on:before-enter="beforeEnter" v-on:leave="leave" v-on:before-leave="beforeLeave">
-        <div class="menu__contacts" key="menu__contacts">
-          <p>Связаться с нами:</p>
-            <a href="#"
-              ><img src="../assets/github.svg" alt=""></a>
-            <a href="#"
-              ><img src="../assets/instagram.svg" alt=""></a>
-              <a href="#"
-              ><img src="../assets/telegram.svg" alt=""></a>
-              <a href="#"
-              ><img src="../assets/twitter (1).svg" alt=""></a>
-        </div>
-      </transition>
-      
+      <ul>
+        <li
+          v-for="li in lis"
+          :class="li.name"
+          :key="li.index"
+        >
+          <router-link :to="{name: li.name, params: {active: li.name}}">
+            <div class="li__wrapper">
+              <font-awesome-icon :icon="li.icon" />
+              <p> {{li.msg}} </p>
+            </div>
+          </router-link>
+
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Menu",
   props: {
-    showMenu: {
-      type: Boolean
+    highlighted: {
+      type: String,
+      default: "home"
     }
   },
   data() {
     return {
+      active: false,
+      toExpand: false,
+      highlighte: this.$props.highlighted,
       lis: {
         1: {
-          msg: 'Тест',
-          index: 1
+          name: "home",
+          msg: "Главная",
+          index: 1,
+          icon: "home"
         },
         2: {
-          msg: 'Тестирование',
-          index: 2
+          name: "info",
+          msg: "О проекте",
+          index: 2,
+          icon: "info-circle"
         },
         3: {
-          msg: 'Тестировка',
-          index: 3
+          name: "howitworks",
+          msg: "Как это работает",
+          index: 3,
+          icon: "book-open"
         },
         4: {
-          msg: 'Тестировщик',
-          index: 4
+          name: "ourteam",
+          msg: "Наша команда",
+          index: 4,
+          icon: "users"
         },
         5: {
-          msg: 'Тестометр',
-          index: 5
+          name: "partnership",
+          msg: "Сотрудничество",
+          index: 5,
+          icon: "handshake"
+        },
+        6: {
+          name: "contact",
+          msg: "Контакты",
+          index: 6,
+          icon: "envelope"
         }
       }
     };
   },
+  computed: {
+      expand() {
+          let context = this;
+          if (this.toExpand) {
+              return function() {
+                  context.active = true;
+              }
+          }
+          else {
+              return function() {
+
+              };
+          }
+      }
+  },
   methods: {
-    preventLi(e) {
-      console.dir(e);
-      e.preventDefault();
-      return false;
-    },
-    beforeEnter(el) {
-      setTimeout(() => {
-        el.style.opacity = 0;
-        el.style.transform = 'translateX(-50px)';
-        done();
-      }, 800);
-    },
-    enter(el) {
-      
-        el.style.opacity = 1;
-        el.style.transform = 'translateX(0)';
-      
-    },
-    beforeLeave(el) {
-        el.style.opacity = 1;
-        el.style.transform = 'translateX(0)';
-    },
-    leave() {
-      el.style.opacity = 0;
-      el.style.transform = 'translateX(0)';
-      done();
+    reduce() {
+      this.active = false;
     }
   },
-  created() {
-    window.addEventListener('keydown', (e) => {
-      if (e.keyCode === 27) {
-        this.$emit('close-menu', e);
-      }
-    })
+  mounted() {
+    document
+      .querySelector(`ul .${this.$props.highlighted}`)
+      .classList.add("highlighted");
+    setTimeout(() => this.toExpand = true, 1000);
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 2rem;
+  font-weight: 300;
+  font-size: 1.1rem;
+  font-family: "Oswald", sans-serif;
 }
 
-.spans {
-  position: absolute;
-  top: 35px;
-  right: 35px;
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.spans > span {
-  position: absolute;
-  height: 2px;
-  width: 35px;
-  background-color: white;
-}
-.spans > span:first-child {
-  transform: rotate(45deg);
-}
-.spans > span:last-child {
-  transform: rotate(-45deg);
-}
-.menu-section {
-  background-color: rgba(0,0,0,1);
-  color: white;
-  height: 100%;
-  width: 100%;
+.menu__section {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
-}
-.menu {
-  display: flex;
   height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  text-decoration: none;
-  padding: 50px;
+  background-color: white;
+  box-shadow: 4px 0px 20px -10px rgba(0, 0, 0, 0.75);
+  transition: 0.15s ease-in-out;
+  overflow: hidden;
 }
-#list {
+
+.initial {
+  width: 62px;
+}
+
+.expanded {
+  width: 350px;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper ul {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  width: 100%;
+  position: absolute;
 }
-#list > li {
-  padding: 20px;
-  transition: 0.5s;
-  max-width: 500px;
-  width: 400px;
-  min-width: 100px;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif;
- font-weight: 300;
- text-transform: uppercase;
- text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0);
-}
-#list > li:hover {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-#list > li:focus {
-  outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-a {
+ul a {
   text-decoration: none;
+  width: 100%;
+  transition: 0.1s ease-in;
+  color: #5f6f81;
+}
+ul li {
+  width: 100%;
+  transition: 0.1s ease-in;
+  border-top: 1px solid rgba(141, 153, 174, 0.2);
+}
+ul li:last-child {
+  border-bottom: 1px solid rgba(141, 153, 174, 0.2);
+}
+ul a:hover {
   color: white;
-  outline: none;
 }
-a:focus > img {
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 15px;
+ul li:hover {
+  background-color: #495867;
+  color: white;
+  cursor: pointer;
 }
-i {
-  text-decoration: none;
-  font-size: 20px;
+.highlighted {
+  border: 1px solid #f37748 !important;
+  cursor: pointer;
 }
-.sign-in__button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-.menu__contacts > ul {
+.wrapper li div {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 100%;
+}
+.wrapper svg {
+  position: absolute;
+}
+.wrapper p {
+  margin-left: 50px;
+  text-align: left;
+  white-space: nowrap;
   cursor: pointer;
-  flex-wrap: wrap;
+  width: 100%;
 }
-.menu__contacts > p {
-  font-family: 'Lora', serif;
-  font-size: 1.4rem;
-}
-li {
-  list-style: none;
-  position: relative;
+
+.spans {
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   cursor: pointer;
 }
 
-.menu__contacts img {
-  width: 40px;
-  height: 40px;
-  margin: 10px;
-  padding: 8px;
+.not__rotated {
+  margin: 2px;
+}
+
+.spans span {
+  width: 30px;
+  height: 2px;
+  border-radius: 5px;
+  background-color: black;
+  margin-left: 16px;
+  display: block;
+}
+
+.spans span:first-child {
+  transition: 0.15s;
+}
+.spans span:last-child {
+  transition: 0.15s;
+}
+
+.rotated {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.disappeared {
+  opacity: 0;
+  position: absolute;
+}
+
+.rotatedReversed {
+  position: absolute;
+  transform: rotate(-45deg);
 }
 </style>
