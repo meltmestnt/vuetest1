@@ -12,19 +12,21 @@
         <span :class="{rotatedReversed: active, not__rotated: !active}"></span>
       </div>
       <ul>
-        <li
+
+        <router-link
           v-for="li in lis"
-          :class="li.name"
           :key="li.index"
+          :to="{name: li.name, params: {active: li.name}}"
         >
-          <router-link :to="{name: li.name, params: {active: li.name}}">
+          <li :class="li.name">
             <div class="li__wrapper">
               <font-awesome-icon :icon="li.icon" />
+
               <p> {{li.msg}} </p>
             </div>
-          </router-link>
+          </li>
+        </router-link>
 
-        </li>
       </ul>
     </div>
   </div>
@@ -84,19 +86,16 @@ export default {
     };
   },
   computed: {
-      expand() {
-          let context = this;
-          if (this.toExpand) {
-              return function() {
-                  context.active = true;
-              }
-          }
-          else {
-              return function() {
-
-              };
-          }
+    expand() {
+      let context = this;
+      if (this.toExpand) {
+        return function() {
+          context.active = true;
+        };
+      } else {
+        return function() {};
       }
+    }
   },
   methods: {
     reduce() {
@@ -107,7 +106,7 @@ export default {
     document
       .querySelector(`ul .${this.$props.highlighted}`)
       .classList.add("highlighted");
-    setTimeout(() => this.toExpand = true, 1000);
+    setTimeout(() => (this.toExpand = true), 500);
   }
 };
 </script>
@@ -129,7 +128,7 @@ export default {
   height: 100%;
   background-color: white;
   box-shadow: 4px 0px 20px -10px rgba(0, 0, 0, 0.75);
-  transition: 0.15s ease-in-out;
+  transition: 0.2s ease-out;
   overflow: hidden;
 }
 
@@ -158,40 +157,54 @@ ul a {
   text-decoration: none;
   width: 100%;
   transition: 0.1s ease-in;
-  color: #5f6f81;
 }
 ul li {
   width: 100%;
   transition: 0.1s ease-in;
   border-top: 1px solid rgba(141, 153, 174, 0.2);
+  color: #5f6f81;
+  opacity: 0.8;
 }
 ul li:last-child {
   border-bottom: 1px solid rgba(141, 153, 174, 0.2);
 }
-ul a:hover {
-  color: white;
-}
+
 ul li:hover {
   background-color: #495867;
   color: white;
   cursor: pointer;
+  opacity: 1 !important;
 }
 .highlighted {
-  border: 1px solid #f37748 !important;
+  background-color: #007aff !important;
+  color: white !important;
   cursor: pointer;
+  opacity: 1 !important;
 }
-.wrapper li div {
+
+.wrapper li .li__wrapper {
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
+  text-align: center;
   width: 100%;
 }
-.wrapper svg {
+a:last-child .li__wrapper svg {
+  margin-left: 2px;
+}
+a:nth-child(2) .li__wrapper svg {
+  margin-left: 2px;
+}
+a:first-child .li__wrapper svg {
+  margin-left: 1px;
+}
+.li__wrapper svg {
   position: absolute;
 }
+
 .wrapper p {
   margin-left: 50px;
   text-align: left;
@@ -207,6 +220,7 @@ ul li:hover {
   justify-content: center;
   align-items: flex-start;
   cursor: pointer;
+  opacity: 0.4;
 }
 
 .not__rotated {
@@ -214,6 +228,7 @@ ul li:hover {
 }
 
 .spans span {
+  background-color: #5f6f81;
   width: 30px;
   height: 2px;
   border-radius: 5px;

@@ -79,13 +79,16 @@ export default {
     top: 0px;
     left: 0;
     align-items: center;
+    font-size: 1rem;
 }
 .succ {
-    font-family: "Times New Roman", sans-serif;
-    color: #007aff;
+    font-family: "Playfair Display", serif;
+    font-weight: 300;
+    color: black;
 }
 .err {
-    color: rgba(156,13,56, 0.7);
-    font-family: "Times New Roman", sans-serif;
+    color: black;
+    font-family: "Playfair Display", serif;
+    font-weight: 300;
 }
 </style>

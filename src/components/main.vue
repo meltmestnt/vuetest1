@@ -1,29 +1,35 @@
 <template>
   <div class="main">
-      <div class="main__container" :class="{ blur: blur }">
-        <Header @open-modal="openMod"></Header>
-            <Menu :highlighted="$props.active">
-            </Menu>
-        <section>
-                <div class="content">
-                    <h1>Main page</h1>
-                </div>
-            </section>
+    <div
+      class="main__container"
+      :class="{ blur: blur }"
+    >
+      <Header @open-modal="openMod"></Header>
+      <Menu :highlighted="$props.active">
+      </Menu>
+      <section>
+        <div class="content">
+          <h1>Main page</h1>
+        </div>
+      </section>
     </div>
-      <Modal v-show="showModal" @closeModal="closeMod"/>
+    <Modal
+      v-show="showModal"
+      @closeModal="closeMod"
+    />
   </div>
 </template>
 
 <script>
-import Menu from './menu'
-import Header from './header'
-import Modal from './modal'
+import Menu from "./menu";
+import Header from "./header";
+import Modal from "./modal";
 export default {
   name: "Main",
   props: {
-      active: {
-          type: String
-      }
+    active: {
+      type: String
+    }
   },
   data() {
     return {
@@ -39,8 +45,8 @@ export default {
       this.blur = true;
     },
     closeMod: function(event) {
-        this.showModal = false;
-        this.blur = false;
+      this.showModal = false;
+      this.blur = false;
     }
   },
   components: {
@@ -59,12 +65,11 @@ export default {
   box-sizing: border-box;
 }
 
-
 .blur {
   filter: blur(4px);
 }
 .main {
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   width: 100vw;
   height: 100vh;
   display: flex;
