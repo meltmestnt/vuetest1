@@ -106,14 +106,16 @@ export default {
 }
 .member {
     padding: 35px;
-    flex: 0 25%;
+    flex: 0 30%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    min-width: 400px;
-    min-height: 400px;
     margin-bottom: 75px;
+    max-height: 500px;
+    max-width: 500px;
+    height: 500px;
+    width: 500px;
     transition: 0.3s;
     cursor: pointer;
     box-shadow: 0px 0px 15px -8px black;
