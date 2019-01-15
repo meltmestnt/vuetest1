@@ -10,10 +10,12 @@
             
           <div class="team">
             <div
+            @click="showCircle($event, about)"
               class="member"
               v-for="member in members"
               :key="member.name"
             >
+            <Circlee />
                 <div class="photo__rhombe">
                     <div class="container__photo">
                         <img :src="member.photo" alt="">
@@ -34,6 +36,7 @@
 
 <script>
 import Menu from "./menu";
+import Circlee from "./Circlee";
 export default {
   name: "OurTeam",
   props: {
@@ -71,9 +74,15 @@ export default {
         ]
     };
   },
-  methods: {},
+  methods: {
+    showCircle(e) {
+      eventBus.$emit("circleshow", e, e.currentTarget);
+    },
+         
+  },
   components: {
-    Menu
+    Menu,
+    Circlee
   }
 };
 </script>
@@ -90,7 +99,7 @@ export default {
     top: 0;
     right: 0;
     width: 85%;
-    height: 80%;
+    height: 75%;
     transform: rotate(-45deg) translate(55%, 100%);
     background-color: lightgrey;
     opacity: 0.1;
@@ -130,15 +139,17 @@ section {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 75px;
-    max-height: 500px;
-    max-width: 500px;
-    height: 500px;
-    width: 500px;
+    max-height: 450px;
+    max-width: 450px;
+    height: 450px;
+    width: 450px;
     background-color: white;
     transition: 0.3s;
     cursor: pointer;
     box-shadow: 0px 0px 15px -8px black;
     margin: 25px 50px 25px 50px;
+    position: relative;
+    overflow: hidden;
 }
 .container__photo {
     width: 100%;
@@ -198,5 +209,6 @@ section {
 }
 .member h3 {
     margin-top: 75px;
+    color: #007aff;
 }
 </style>
