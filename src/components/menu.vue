@@ -117,7 +117,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-family: "Oswald", sans-serif;
 }
 
@@ -126,8 +126,8 @@ export default {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: white;
-  box-shadow: 4px 0px 20px -10px rgba(0, 0, 0, 0.75);
+  background-color: #232528;
+  box-shadow: 4px 0px 30px -15px rgba(0, 0, 0, 0.75);
   transition: 0.35s;
   overflow: hidden;
   z-index: 9999;
@@ -163,15 +163,14 @@ ul li {
   width: 100%;
   transition: 0.1s ease-in;
   border-top: 1px solid rgba(141, 153, 174, 0.2);
-  color: #5f6f81;
-  opacity: 0.8;
+  color: lightgrey;
 }
 ul li:last-child {
   border-bottom: 1px solid rgba(141, 153, 174, 0.2);
 }
 
 ul li:hover {
-  background-color: #495867;
+  background-color: rgba(255,255,255,0.1);
   color: white;
   cursor: pointer;
   opacity: 1 !important;
@@ -193,15 +192,16 @@ ul li:hover {
   text-align: center;
   width: 100%;
 }
-a:last-child .li__wrapper svg {
-  margin-left: 2px;
+a:nth-child(4) .li__wrapper svg  {
+  font-size: 1.1rem;
 }
-a:nth-child(2) .li__wrapper svg {
-  margin-left: 2px;
+a:nth-child(5) .li__wrapper svg {
+  font-size: 1.1rem;
 }
-a:first-child .li__wrapper svg {
-  margin-left: 1px;
+a:nth-child(3) .li__wrapper svg {
+  font-size: 1.2rem;
 }
+
 .li__wrapper svg {
   position: absolute;
 }
@@ -229,11 +229,10 @@ a:first-child .li__wrapper svg {
 }
 
 .spans span {
-  background-color: #5f6f81;
   width: 30px;
   height: 2px;
   border-radius: 5px;
-  background-color: black;
+  background-color: rgba(211, 211, 211, 0.9);
   margin-left: 16px;
   display: block;
 }

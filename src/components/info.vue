@@ -46,7 +46,7 @@ export default {
           title: "Идея проекта",
           text: `Главная задача проекта – помочь людям с заболеванием щитовидной железы контролировать гормональный фон в повседневной жизни,
            и обнаруживать ухудшение своего состояния раньше, чем это ощутит человек на себе.`,
-          expanded: false
+          expanded: true
         },
         {
           title: "Чем полезна наша система",
@@ -78,6 +78,12 @@ export default {
   components: {
     Menu,
     Circlee
+  },
+  mounted() {
+    eventBus.$emit("circleshow", {
+      clientX: document.querySelector('.about').clientWidth / 2 + document.querySelector('.about').offsetLeft,
+      clientY: document.querySelector('.about').clientHeight / 2 + document.querySelector('.about').offsetTop
+      }, document.querySelector('.about'))
   }
 };
 </script>
