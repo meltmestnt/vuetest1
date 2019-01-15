@@ -102,43 +102,71 @@ export default {
     justify-content: space-around;
     font-size: 1.3rem;
     align-items: center;
+    margin: 25px;
 }
 .member {
     padding: 35px;
-    flex: 0 35%;
-    height: 400px;
-    width: 400px;
+    flex: 0 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 400px;
     min-height: 400px;
-    margin-top: 100px;
     margin-bottom: 75px;
     transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 0px 0px 15px -8px black;
+    margin: 25px 50px 25px 50px;
 }
 .container__photo {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
+}
+.container__photo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 99%;
+    height: 99%;
+    border: 1px solid white;
+    z-index: 999;
+}
+.container__photo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 95%;
+    z-index: 999;
+    border: 5px solid rgba(33, 33, 33, 1);
 }
 .photo__rhombe {
-    overflow:hidden;
+    overflow: hidden;
     transform: rotate(-45deg);
     border: 5px solid rgba(33, 33, 33, 1);
     position: relative;
     z-index: 99;
-    min-width: 250px;
-    min-height: 250px;
+    min-width: 200px;
+    width: 200px;
+    height: 200px;
+    min-height: 200px;
 }
 .photo__rhombe img {
     overflow: hidden;
     position: absolute;
-    z-index: 0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
+}
+.member:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 4px 15px -8px black;
 }
 .member img {
     width: 250px;
