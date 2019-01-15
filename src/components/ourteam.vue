@@ -1,10 +1,13 @@
 <template>
   <div class="main">
+
     <div class="main__container">
       <Menu :highlighted="$props.active"></Menu>
       <h1>Наша команда</h1>
       <section>
+          <div class="right__rhombe"></div>
         <div class="content">
+            
           <div class="team">
             <div
               class="member"
@@ -79,7 +82,22 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  z-index: 99;
   box-sizing: border-box;
+}
+.right__rhombe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 85%;
+    height: 80%;
+    transform: rotate(-45deg) translate(55%, 100%);
+    background-color: lightgrey;
+    opacity: 0.1;
+    display: block;
+}
+section {
+    overflow: hidden;
 }
 .blur {
   filter: blur(4px);
@@ -116,6 +134,7 @@ export default {
     max-width: 500px;
     height: 500px;
     width: 500px;
+    background-color: white;
     transition: 0.3s;
     cursor: pointer;
     box-shadow: 0px 0px 15px -8px black;
