@@ -122,14 +122,15 @@ export default {
 }
 
 .menu__section {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   background-color: white;
   box-shadow: 4px 0px 20px -10px rgba(0, 0, 0, 0.75);
-  transition: 0.2s ease-out;
+  transition: 0.35s;
   overflow: hidden;
+  z-index: 9999;
 }
 
 .initial {

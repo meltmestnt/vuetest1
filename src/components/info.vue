@@ -1,77 +1,147 @@
 <template>
   <div class="main">
-    <div
-      class="main__container"
-      :class="{ blur: blur }"
-    >
-      <Header @open-modal="openMod"></Header>
+    <div class="main__container">
       <Menu :highlighted="$props.active"></Menu>
+      <h1>О проекте</h1>
       <section>
         <div class="content">
-          <h1>Info page</h1>
+          <div class="abouts">
+            <div
+              class="about"
+              @click="showCircle($event, about)"
+              v-for="about in abouts"
+              :key="about.title"
+              :class="{expande: about.expanded}"
+            >
+              <Circlee />
+              <h3>{{about.title}}</h3>
+              <p>{{ about.text }}</p>
+            </div>
+
+          </div>
+        <div class="howitworks">
+          <router-link :to="{name: 'howitworks', params: {active: 'howitworks'}}">Как это работает</router-link>
+        </div>
         </div>
       </section>
     </div>
-    <Modal
-      v-show="showModal"
-      @closeModal="closeMod"
-    />
   </div>
 </template>
 
 <script>
 import Menu from "./menu";
-import Header from "./header";
-import Modal from "./modal";
+import Circlee from "./Circlee";
 export default {
-  name: 'Info',
+  name: "Info",
   props: {
-      active: {
-          type: String
-      }
+    active: {
+      type: String
+    }
   },
   data() {
     return {
-      showModal: false,
-      blur: false,
-      showMenu: false,
-      menuOpened: false
+      copy: "",
+      abouts: [
+        {
+          title: "Идея проекта",
+          text: `Главная задача проекта – помочь людям с заболеванием щитовидной железы контролировать гормональный фон в повседневной жизни,
+           и обнаруживать ухудшение своего состояния раньше, чем это ощутит человек на себе.`,
+          expanded: false
+        },
+        {
+          title: "Чем полезна наша система",
+          text: `В мире около 1,5% людей страдают разными видами дистиреоза. И они вынуждены принимать специальные препараты для регулирования уровня тиреотропного гормона. 
+Этим людям нужен регулярный контроль за состоянием своего здоровья.
+Они могут изменить образ жизни. Например, заняться спортом или изменить рацион питания. Кроме того, в силу возраста может меняться работа щитовидной железы. И это влияет на необходимую дозу препарата.
+Наша система позволяет следить за своим здоровьем в домашних условиях. И при этом оставаться под наблюдением врача.
+`,
+          expanded: false
+        },
+        {
+          title: "Возможности системы",
+          text: `Система позволяет контролировать работу щитовидной железы дома, без необходимости посещения врача, при этом врач всегда будет в курсе ваших измерений.
+Анализ проводится в считанные секунды, без необходимости забора крови.
+История ваших измерений сохраняется, что бы вы и ваш врач мог в любой момент посмотреть тенденцию изменений в работе щитовидной железы.
+
+`,
+          expanded: false
+        }
+      ]
     };
   },
   methods: {
-    openMod: function() {
-      this.showModal = true;
-      this.blur = true;
-    },
-    closeMod: function(event) {
-      this.showModal = false;
-      this.blur = false;
+    showCircle(e, about) {
+      eventBus.$emit("circleshow", e, e.currentTarget);
+      about.expanded = !about.expanded;
     }
   },
   components: {
     Menu,
-    Modal,
-    Header
+    Circlee
   }
 };
 </script>
 
 <style scoped>
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+  margin-top: 0;
+  font-size: 1.5rem;
 }
 .blur {
   filter: blur(4px);
 }
-.main {
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 100vw;
-  height: 100vh;
+.expande {
+  height: auto !important;
+  transition: 0.4s;
 }
-.main__container {
-  width: 100vw;
-  height: 100vh;
+.abouts {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+}
+.about {
+  width: 75%;
+  border: 1px solid rgba(211, 211, 211, 0.3);
+  box-shadow: 0px 3px 30px -15px rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  overflow: hidden;
+  position: relative;
+  height: 70px;
+}
+.about:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 30px -15px rgba(0, 0, 0, 0.75);
+}
+.howitworks {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007aff;
+  border-radius: 10px;
+  margin: 25px;
+  box-shadow: 0px 3px 30px -8px rgba(0, 0, 0, 0.75);
+  transition: 0.3s;
+}
+.howitworks a {
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  height: 100%; 
+}
+.howitworks:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 30px -8px rgba(0, 0, 0, 0.75);
 }
 </style>
