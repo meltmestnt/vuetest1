@@ -25,7 +25,7 @@ library.add(
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-
+window.eventBus = new Vue();
 Vue.config.productionTip = false;
 document.body.style.margin = 0;
 
