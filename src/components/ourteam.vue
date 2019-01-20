@@ -10,7 +10,7 @@
             
           <div class="team">
             <div
-            @click="showCircle($event, about)"
+            @click="showCircle($event)"
               class="member"
               v-for="member in members"
               :key="member.name"
@@ -99,50 +99,36 @@ export default {
     top: 0;
     right: 0;
     width: 85%;
-    height: 75%;
-    transform: rotate(-45deg) translate(55%, 100%);
+    height: 65%;
+    transform: rotate(-45deg) translate(60%, 120%);
     background-color: lightgrey;
-    opacity: 0.1;
+    opacity: 0.15;
     display: block;
-}
-section {
-    overflow: hidden;
 }
 .blur {
   filter: blur(4px);
 }
-.main {
-  background-color: rgba(255, 255, 255, 0.5);
-  width: 100vw;
-  height: 100vh;
-}
-.main__container {
-  width: 100vw;
-  height: 100vh;
-}
+
 .team {
-    width: 100%;
+    width: 70%;
     height: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    font-size: 1.3rem;
+    font-size: 1rem;
     align-items: center;
-    margin: 25px;
 }
 .member {
-    padding: 35px;
-    flex: 0 30%;
     display: flex;
+    padding: 20px;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
-    margin-bottom: 75px;
-    max-height: 450px;
-    max-width: 450px;
-    height: 450px;
-    width: 450px;
+    max-height: 275px;
+    max-width: 275px;
+    height: 275px;
+    width: 275px;
     background-color: white;
     transition: 0.3s;
     cursor: pointer;
@@ -184,12 +170,14 @@ section {
     border: 5px solid rgba(33, 33, 33, 1);
     position: relative;
     z-index: 99;
-    min-width: 200px;
-    width: 200px;
-    height: 200px;
-    min-height: 200px;
+    margin-top: 5px;
+    min-width: 100px;
+    width: 100px;
+    height: 100px;
+    min-height: 100px;
 }
 .photo__rhombe img {
+    padding: 5px;
     overflow: hidden;
     position: absolute;
     top: 50%;
@@ -201,14 +189,11 @@ section {
     box-shadow: 0px 4px 15px -8px black;
 }
 .member img {
-    width: 250px;
-    height: 250px;
-}
-.member h3, h4, h5, p {
-    margin: 5px;
+    width: 125px;
+    height: 125px;
 }
 .member h3 {
-    margin-top: 75px;
+    margin-top: 25px;
     color: #007aff;
 }
 </style>

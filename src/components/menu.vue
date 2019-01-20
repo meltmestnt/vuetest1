@@ -158,6 +158,7 @@ ul a {
   text-decoration: none;
   width: 100%;
   transition: 0.1s ease-in;
+  letter-spacing: 1px;
 }
 ul li {
   width: 100%;

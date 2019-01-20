@@ -101,6 +101,7 @@ export default {
   height: auto !important;
   transition: 0.4s;
 }
+
 .abouts {
   width: 100%;
   height: 100%;

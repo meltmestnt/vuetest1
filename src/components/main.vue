@@ -139,7 +139,8 @@ export default {
   margin: 20px;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.75);
+  background-color: white;
+  box-shadow: 0px 0px 17px -8px rgba(0, 0, 0, 0.75);
   transition: 0.4s;
   position: relative;
   overflow: hidden;
